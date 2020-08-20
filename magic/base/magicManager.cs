@@ -30,6 +30,7 @@ namespace FGFly.magic
                 return _instance;
             }
         }
+
         public void Hello()
         {
             //AACheat.Init();
@@ -51,5 +52,8 @@ namespace FGFly.magic
         {
             magics.ForEach(m => m.GUI());
         }
+
+
+
     }
 }

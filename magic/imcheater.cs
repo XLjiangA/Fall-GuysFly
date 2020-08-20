@@ -7,6 +7,7 @@ namespace FGFly.magic
     public static class imcheater
     {
         static MethodInfo EliminateParticipant { get; set; }
+
         public static void Init()
         {
             EliminateParticipant = typeof(IGameStateServerActions).GetMethod("EliminateParticipant", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
@@ -29,5 +30,8 @@ namespace FGFly.magic
                 *tar = *inj;
             }
         }
+
+
+
     }
 }

@@ -28,41 +28,27 @@ namespace FGFly.magic
         public override void FixedUpdate()
         {
             if (R)
+                GameLog.write((StopPlayers = !StopPlayers) ? "[时间停止]开启" : "[时间停止]关闭");
+            frozenPos(StopPlayers);
+        }
+        private void frozenPos(bool value = true)
+        {
+            foreach (var _fg in GameObject.FindObjectsOfType<FallGuysCharacterController>())
             {
-                StopPlayers = !StopPlayers;
-                if (StopPlayers)
+                if (!_fg.IsLocalPlayer)
                 {
-                    GameLog.write("[时间停止]开启");
-                    //cGM._screenManager.TryShowModalMessage("时间管理大师", "开启成功", UIModalMessage.ModalType.MT_BLOCKING);
-                }
-                else
-                {
-                    GameLog.write("[时间停止]关闭");
-                    // cGM._screenManager.TryShowModalMessage("时间管理大师", "关闭成功", UIModalMessage.ModalType.MT_BLOCKING);
-                }
-            }
-            if (StopPlayers)
-            {
-                foreach (var _fg in GameObject.FindObjectsOfType<FallGuysCharacterController>())
-                {
-                    if (!_fg.IsLocalPlayer)
-                    {
-                        _fg.transform.position = old_PosList[_fg.name];
-                        _fg.transform.rotation = old_QuaList[_fg.name];
-                    }
-                }
-            }
-            else
-            {
-                foreach (var _fg in GameObject.FindObjectsOfType<FallGuysCharacterController>())
-                {
-                    if (!_fg.IsLocalPlayer)
+                    if (value)
                     {
                         old_PosList[_fg.name] = _fg.transform.position;
                         old_QuaList[_fg.name] = _fg.transform.rotation;
                     }
+                    _fg.transform.position = old_PosList[_fg.name];
+                    _fg.transform.rotation = old_QuaList[_fg.name];
                 }
             }
         }
+
+
+
     }
 }

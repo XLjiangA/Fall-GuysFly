@@ -13,9 +13,12 @@ namespace FGFly.magic
 
         public TagManager TaGm => cGM._tagManager;
 
-        public virtual void Init(FallGuysCharacterController _fg) { fg = _fg; }
+        public virtual void Init(FallGuysCharacterController _fg) { fg = _fg;}
         public virtual void Update() { }
         public virtual void GUI() { }
         public virtual void FixedUpdate() { }
+
+
+
     }
 }

@@ -8,21 +8,14 @@ namespace FGFly.view
     {
         private static List<string> messages = new List<string>();
 
-        public static void write(string msg)
-        {
-            messages.Add(msg);
-            /*Task.Run(() =>
-             {
-                 Task.Delay(2000);
-                 if (messages.Count > 0)
-                 {
-                     messages.RemoveAt(0);
-                 }
-             });
-            */
-        }
+        public static void Clear() => messages.Clear();
+
+        public static void write(string msg) => messages.Add(msg);
+
         private static float Timer = 2f;
+
         private static float delayTime = 2f;
+
         public static void listen()
         {
             if (messages.Count > 0)
@@ -36,16 +29,14 @@ namespace FGFly.view
                 }
             }
         }
-        public static void Clear()
-        {
-            messages.Clear();
-        }
-
         public static string[] getLogs()
         {
             var temp = messages.ToArray();
             Array.Reverse(temp);
             return temp;
         }
+
+
+
     }
 }

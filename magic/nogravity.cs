@@ -25,12 +25,14 @@ namespace FGFly.magic
         {
             base.Init(_fg);
             NoGravity = false;
+            //test data
             fg.Data.diveForce = 20;
             fg.Data.airDiveForce = 30;
             fg.Data.staggerForce = 0;
             fg.Data.bracePushForce = 300;
             fg.Data.armBoundsForce = 300;
             fg.Data.playerGrabCheckDistance = 30000;
+            //test -----
         }
         public override void Update()
         {
@@ -38,14 +40,7 @@ namespace FGFly.magic
             H = Input.GetAxis("Horizontal");
             V = Input.GetAxis("Vertical");
             Q = Input.GetKeyDown(KeyCode.Q);
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                moveSpeed = 14;
-            }
-            else
-            {
-                moveSpeed = 6;
-            }
+            moveSpeed = Input.GetKey(KeyCode.LeftShift) ? 16 : 6;
         }
         public override void FixedUpdate()
         {
@@ -57,40 +52,22 @@ namespace FGFly.magic
                 FgT.Translate(targetDirection * Time.deltaTime * moveSpeed, Space.World);
             }
             if (Q)
-            {
-                NoGravity = !NoGravity;
-                if (NoGravity)
-                {
-                    GameLog.write("[飞行模式]开启");
-                }
-                else
-                {
-                    GameLog.write("[飞行模式]关闭");
-                }
-            }
+                GameLog.write((NoGravity = !NoGravity) ? "[飞行模式]开启" : "[飞行模式]关闭");
+            fg.ApplyGravity = !NoGravity;
+            fg.DebugZeroGravity = NoGravity;
             if (NoGravity)
             {
-                fg.ApplyGravity = false;
-                fg.DebugZeroGravity = true;
                 FgT.position = new Vector3(FgT.position.x, old_Y + offset_Y, FgT.position.z);
-                if (Axis > 0)
-                {
-                    //MelonLogger.Log("Fall Guys Up");
-                    offset_Y += 1f;
-                }
-                if (Axis < 0)
-                {
-                    offset_Y -= 1f;
-                }
-
+                offset_Y += Axis > 0 ? 1f : -1f;
             }
             else
             {
-                fg.ApplyGravity = true;
-                fg.DebugZeroGravity = false;
                 offset_Y = 0;
                 old_Y = FgT.position.y;
             }
         }
+
+
+
     }
 }
