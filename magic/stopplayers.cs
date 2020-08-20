@@ -37,7 +37,7 @@ namespace FGFly.magic
             {
                 if (!_fg.IsLocalPlayer)
                 {
-                    if (value)
+                    if (!value)
                     {
                         old_PosList[_fg.name] = _fg.transform.position;
                         old_QuaList[_fg.name] = _fg.transform.rotation;

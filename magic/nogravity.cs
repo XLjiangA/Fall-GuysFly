@@ -58,7 +58,7 @@ namespace FGFly.magic
             if (NoGravity)
             {
                 FgT.position = new Vector3(FgT.position.x, old_Y + offset_Y, FgT.position.z);
-                offset_Y += Axis > 0 ? 1f : -1f;
+                offset_Y += Axis != 0 ? Axis > 0 ? 1f : -1f : 0;
             }
             else
             {
